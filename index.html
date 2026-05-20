@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My English — Frases & Vocabulario</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --cream: #f7f2ea;
+    --warm: #e8dfd0;
+    --accent: #c8723a;
+    --accent2: #4a7c6f;
+    --muted: #8a7f74;
+    --card: #ffffff;
+    --border: #d8d0c4;
+    --shadow: rgba(26,20,16,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+  }
+
+  header h1 span { color: var(--accent); font-style: italic; }
+
+  .header-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .stat-pill {
+    background: rgba(255,255,255,0.06);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat-pill b { color: var(--accent); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    background: var(--ink);
+    padding: 0 32px;
+    gap: 4px;
+    border-bottom: 1px solid #2a2420;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tab-btn:hover { color: var(--cream); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* MAIN */
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ADD FORM */
+  .add-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .add-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .form-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .form-row input, .form-row select, .form-row textarea {
+    flex: 1;
+    min-width: 140px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    background: var(--cream);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-row textarea { resize: vertical; min-height: 70px; }
+
+  .btn-add {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-add:hover { background: #b5622e; }
+  .btn-add:active { transform: scale(0.97); }
+
+  /* FILTER BAR */
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-bar input {
+    flex: 1;
+    min-width: 180px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    background: var(--card);
+    color: var(--ink);
+    outline: none;
+  }
+
+  .filter-bar input:focus { border-color: var(--accent2); }
+
+  .cat-filter {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .cat-tag {
+    background: var(--warm);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .cat-tag.active {
+    background: var(--accent2);
+    color: white;
+    border-color: var(--accent2);
+  }
+
+  /* ITEMS GRID */
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .item-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+    box-shadow: 0 1px 6px var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s;
+    animation: fadeUp 0.25s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--shadow);
+  }
+
+  .item-cat {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .item-english {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  .item-spanish {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  .item-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .btn-icon {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.15s;
+  }
+
+  .btn-icon:hover { background: var(--border); }
+  .btn-icon.del:hover { background: #fde8e8; border-color: #f5a5a5; }
+
+  /* VOCAB SPECIFIC */
+  .item-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .item-pron {
+    font-size: 0.78rem;
+    color: var(--accent2);
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+
+  .item-def {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .item-example {
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--cream);
+    border-left: 3px solid var(--accent2);
+    padding: 5px 10px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    grid-column: 1/-1;
+  }
+
+  .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+  .empty-state p { font-size: 0.95rem; }
+
+  /* CATEGORY COLORS */
+  .cat-color-1 { background: #fef3e2; color: #c8723a; }
+  .cat-color-2 { background: #e8f4f1; color: #4a7c6f; }
+  .cat-color-3 { background: #eef2fb; color: #5570b8; }
+  .cat-color-4 { background: #fde9f4; color: #a5538a; }
+  .cat-color-5 { background: #e9f9ee; color: #3d8b57; }
+  .cat-color-6 { background: #f0edfd; color: #7054c4; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,20,16,0.55);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 28px;
+    width: 90%;
+    max-width: 440px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.2s ease both;
+  }
+
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.94); }
+    to   { opacity:1; transform: scale(1); }
+  }
+
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 18px;
+    font-size: 1.2rem;
+  }
+
+  .modal .form-row { margin-bottom: 10px; }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    justify-content: flex-end;
+  }
+
+  .btn-cancel {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-cancel:hover { background: var(--border); }
+
+  /* PROGRESS BAR for mastery */
+  .mastery-bar {
+    height: 4px;
+    background: var(--warm);
+    border-radius: 4px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .mastery-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--accent2), #6dbfaa);
+    transition: width 0.4s;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.25s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 540px) {
+    header { padding: 14px 16px; }
+    .tabs { padding: 0 16px; }
+    main { padding: 20px 12px; }
+    .header-stats { display: none; }
+    header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>My <span>English</span></h1>
+  <div class="header-stats">
+    <div class="stat-pill">Frases: <b id="count-phrases">0</b></div>
+    <div class="stat-pill">Vocab: <b id="count-vocab">0</b></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('phrases')">📖 Frases</button>
+  <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulario</button>
+</div>
+
+<main>
+
+  <!-- ===== PHRASES SECTION ===== -->
+  <section id="sec-phrases" class="section active">
+
+    <div class="add-card">
+      <h2>+ Agregar frase</h2>
+      <div class="form-row">
+        <input type="text" id="p-english" placeholder="Frase en inglés (ej. I can't make it)" />
+        <input type="text" id="p-spanish" placeholder="Significado en español" />
+      </div>
+      <div class="form-row">
+        <select id="p-cat">
+          <option value="">— Categoría —</option>
+        </select>
+        <input type="text" id="p-newcat" placeholder="Nueva categoría..." />
+        <textarea id="p-note" placeholder="Nota o contexto (opcional)..." rows="2"></textarea>
+      </div>
+      <div class="form-row">
+        <button class="btn-add" onclick="addPhrase()">Guardar frase</button>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="search-phrases" placeholder="Buscar frases..." oninput="renderPhrases()" />
+      <div class="cat-filter" id="cat-filter-phrases"></div>
+    </div>
+
+    <div class="items-grid" id="phrases-grid"></div>
+  </section>
+
+  <!-- ===== VOCAB SECTION ===== -->
+  <section id="sec-vocab" class="section">
+
+    <div class="add-card">
+      <h2>+ Agregar palabra</h2>
+      <div class="form-row">
+        <input type="text" id="v-word" placeholder="Palabra en inglés" />
+        <input type="text" id="v-pron" placeholder="Pronunciación (ej. /ˈæpl/)" />
+      </div>
+      <div class="form-row">
+        <input type="text" id="v-def" placeholder="Definición o traducción" />
+        <select id="v-type">
+          <option value="noun">Sustantivo</option>
+          <option value="verb">Verbo</option>
+          <option value="adj">Adjetivo</option>
+          <option value="adv">Adverbio</option>
+          <option value="phrase">Expresión</option>
+          <option value="other">Otro</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <input type="text" id="v-example" placeholder='Ejemplo: "She looks stunning today."' />
+      </div>
+      <div class="form-row">
+        <button class="btn-add" onclick="addVocab()">Guardar palabra</button>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="search-vocab" placeholder="Buscar palabras..." oninput="renderVocab()" />
+      <div class="cat-filter" id="cat-filter-vocab">
+        <span class="cat-tag active" data-v="all" onclick="filterVocabType(this,'all')">Todas</span>
+        <span class="cat-tag" data-v="noun" onclick="filterVocabType(this,'noun')">Sustantivos</span>
+        <span class="cat-tag" data-v="verb" onclick="filterVocabType(this,'verb')">Verbos</span>
+        <span class="cat-tag" data-v="adj" onclick="filterVocabType(this,'adj')">Adjetivos</span>
+        <span class="cat-tag" data-v="adv" onclick="filterVocabType(this,'adv')">Adverbios</span>
+        <span class="cat-tag" data-v="phrase" onclick="filterVocabType(this,'phrase')">Expresiones</span>
+      </div>
+    </div>
+
+    <div class="items-grid" id="vocab-grid"></div>
+  </section>
+
+</main>
+
+<!-- EDIT PHRASE MODAL -->
+<div class="modal-overlay" id="modal-phrase">
+  <div class="modal">
+    <h3>Editar frase</h3>
+    <div class="form-row"><input type="text" id="ep-english" placeholder="Frase en inglés" /></div>
+    <div class="form-row"><input type="text" id="ep-spanish" placeholder="Significado en español" /></div>
+    <div class="form-row">
+      <select id="ep-cat"></select>
+      <input type="text" id="ep-newcat" placeholder="Nueva categoría..." />
+    </div>
+    <div class="form-row"><textarea id="ep-note" placeholder="Nota o contexto..." rows="3"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-phrase')">Cancelar</button>
+      <button class="btn-add" onclick="saveEditPhrase()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT VOCAB MODAL -->
+<div class="modal-overlay" id="modal-vocab">
+  <div class="modal">
+    <h3>Editar palabra</h3>
+    <div class="form-row">
+      <input type="text" id="ev-word" placeholder="Palabra" />
+      <input type="text" id="ev-pron" placeholder="Pronunciación" />
+    </div>
+    <div class="form-row">
+      <input type="text" id="ev-def" placeholder="Definición" />
+      <select id="ev-type">
+        <option value="noun">Sustantivo</option>
+        <option value="verb">Verbo</option>
+        <option value="adj">Adjetivo</option>
+        <option value="adv">Adverbio</option>
+        <option value="phrase">Expresión</option>
+        <option value="other">Otro</option>
+      </select>
+    </div>
+    <div class="form-row"><input type="text" id="ev-example" placeholder="Ejemplo de uso" /></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-vocab')">Cancelar</button>
+      <button class="btn-add" onclick="saveEditVocab()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DATA =====
+let phrases = JSON.parse(localStorage.getItem('eng_phrases') || '[]');
+let vocab   = JSON.parse(localStorage.getItem('eng_vocab')   || '[]');
+let cats    = JSON.parse(localStorage.getItem('eng_cats')    || '["Saludos","Trabajo","Social","Viajes","Emociones"]');
+
+let activeCat = 'all';
+let activeVType = 'all';
+let editingPhraseId = null;
+let editingVocabId  = null;
+
+const CAT_COLORS = ['cat-color-1','cat-color-2','cat-color-3','cat-color-4','cat-color-5','cat-color-6'];
+
+function save() {
+  localStorage.setItem('eng_phrases', JSON.stringify(phrases));
+  localStorage.setItem('eng_vocab',   JSON.stringify(vocab));
+  localStorage.setItem('eng_cats',    JSON.stringify(cats));
+  updateStats();
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function updateStats() {
+  document.getElementById('count-phrases').textContent = phrases.length;
+  document.getElementById('count-vocab').textContent   = vocab.length;
+}
+
+// ===== TABS =====
+function switchTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== CATEGORIES =====
+function catColor(cat) {
+  const idx = cats.indexOf(cat);
+  return CAT_COLORS[idx % CAT_COLORS.length] || 'cat-color-1';
+}
+
+function renderCatSelects() {
+  ['p-cat','ep-cat'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const val = sel.value;
+    sel.innerHTML = '<option value="">— Categoría —</option>' +
+      cats.map(c => `<option value="${c}">${c}</option>`).join('');
+    sel.value = val;
+  });
+}
+
+function renderCatFilter() {
+  const el = document.getElementById('cat-filter-phrases');
+  el.innerHTML = `<span class="cat-tag ${activeCat==='all'?'active':''}" onclick="filterCat(this,'all')">Todas</span>` +
+    cats.map(c => `<span class="cat-tag ${activeCat===c?'active':''}" onclick="filterCat(this,'${c}')">${c}</span>`).join('');
+}
+
+function filterCat(el, cat) {
+  activeCat = cat;
+  document.querySelectorAll('#cat-filter-phrases .cat-tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderPhrases();
+}
+
+function filterVocabType(el, type) {
+  activeVType = type;
+  document.querySelectorAll('#cat-filter-vocab .cat-tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderVocab();
+}
+
+function getOrCreateCat(catSelect, newCatInput) {
+  let cat = document.getElementById(catSelect).value;
+  const newVal = document.getElementById(newCatInput).value.trim();
+  if (newVal) {
+    if (!cats.includes(newVal)) { cats.push(newVal); renderCatSelects(); renderCatFilter(); }
+    cat = newVal;
+    document.getElementById(newCatInput).value = '';
+  }
+  return cat;
+}
+
+// ===== PHRASES =====
+function addPhrase() {
+  const eng  = document.getElementById('p-english').value.trim();
+  const esp  = document.getElementById('p-spanish').value.trim();
+  const note = document.getElementById('p-note').value.trim();
+  const cat  = getOrCreateCat('p-cat','p-newcat');
+  if (!eng) { toast('Escribe la frase en inglés'); return; }
+  phrases.unshift({ id: uid(), english: eng, spanish: esp, note, cat, mastery: 0 });
+  save();
+  ['p-english','p-spanish','p-note'].forEach(id => document.getElementById(id).value = '');
+  renderPhrases();
+  toast('¡Frase guardada! 📖');
+}
+
+function renderPhrases() {
+  const q = document.getElementById('search-phrases').value.toLowerCase();
+  const grid = document.getElementById('phrases-grid');
+  let list = phrases.filter(p => {
+    const matchCat = activeCat === 'all' || p.cat === activeCat;
+    const matchQ   = !q || p.english.toLowerCase().includes(q) || p.spanish.toLowerCase().includes(q) || (p.note||'').toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">📚</div><p>No hay frases todavía.<br>¡Agrega tu primera frase arriba!</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="item-card">
+      ${p.cat ? `<span class="item-cat ${catColor(p.cat)}">${p.cat}</span>` : ''}
+      <div class="item-english">${escHtml(p.english)}</div>
+      ${p.spanish ? `<div class="item-spanish">${escHtml(p.spanish)}</div>` : ''}
+      ${p.note    ? `<div class="item-note">💡 ${escHtml(p.note)}</div>` : ''}
+      <div class="mastery-bar"><div class="mastery-fill" style="width:${p.mastery||0}%"></div></div>
+      <div class="card-actions">
+        <button class="btn-icon" onclick="incMastery('${p.id}')" title="Marcar que la practicaste">✅</button>
+        <button class="btn-icon" onclick="openEditPhrase('${p.id}')" title="Editar">✏️</button>
+        <button class="btn-icon del" onclick="deletePhrase('${p.id}')" title="Eliminar">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function incMastery(id) {
+  const p = phrases.find(x => x.id === id);
+  if (!p) return;
+  p.mastery = Math.min(100, (p.mastery || 0) + 20);
+  save(); renderPhrases();
+}
+
+function deletePhrase(id) {
+  if (!confirm('¿Eliminar esta frase?')) return;
+  phrases = phrases.filter(p => p.id !== id);
+  save(); renderPhrases(); toast('Frase eliminada');
+}
+
+function openEditPhrase(id) {
+  const p = phrases.find(x => x.id === id);
+  if (!p) return;
+  editingPhraseId = id;
+  document.getElementById('ep-english').value = p.english || '';
+  document.getElementById('ep-spanish').value = p.spanish || '';
+  document.getElementById('ep-note').value    = p.note    || '';
+  renderCatSelects();
+  document.getElementById('ep-cat').value = p.cat || '';
+  document.getElementById('modal-phrase').classList.add('open');
+}
+
+function saveEditPhrase() {
+  const p = phrases.find(x => x.id === editingPhraseId);
+  if (!p) return;
+  p.english = document.getElementById('ep-english').value.trim();
+  p.spanish = document.getElementById('ep-spanish').value.trim();
+  p.note    = document.getElementById('ep-note').value.trim();
+  const nc  = document.getElementById('ep-newcat').value.trim();
+  if (nc) { if (!cats.includes(nc)) cats.push(nc); p.cat = nc; document.getElementById('ep-newcat').value=''; }
+  else p.cat = document.getElementById('ep-cat').value;
+  save(); closeModal('modal-phrase'); renderPhrases(); renderCatFilter(); toast('Frase actualizada ✏️');
+}
+
+// ===== VOCAB =====
+const typeLabels = { noun:'Sustantivo', verb:'Verbo', adj:'Adjetivo', adv:'Adverbio', phrase:'Expresión', other:'Otro' };
+const typeColors  = { noun:'cat-color-1', verb:'cat-color-2', adj:'cat-color-3', adv:'cat-color-5', phrase:'cat-color-4', other:'cat-color-6' };
+
+function addVocab() {
+  const word = document.getElementById('v-word').value.trim();
+  const pron = document.getElementById('v-pron').value.trim();
+  const def  = document.getElementById('v-def').value.trim();
+  const type = document.getElementById('v-type').value;
+  const ex   = document.getElementById('v-example').value.trim();
+  if (!word) { toast('Escribe la palabra'); return; }
+  vocab.unshift({ id: uid(), word, pron, def, type, example: ex, mastery: 0 });
+  save();
+  ['v-word','v-pron','v-def','v-example'].forEach(id => document.getElementById(id).value = '');
+  renderVocab();
+  toast('¡Palabra guardada! 🔤');
+}
+
+function renderVocab() {
+  const q = document.getElementById('search-vocab').value.toLowerCase();
+  const grid = document.getElementById('vocab-grid');
+  let list = vocab.filter(v => {
+    const matchType = activeVType === 'all' || v.type === activeVType;
+    const matchQ    = !q || v.word.toLowerCase().includes(q) || (v.def||'').toLowerCase().includes(q) || (v.example||'').toLowerCase().includes(q);
+    return matchType && matchQ;
+  });
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">🔤</div><p>No hay palabras todavía.<br>¡Agrega tu primera palabra arriba!</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(v => `
+    <div class="item-card">
+      <span class="item-cat ${typeColors[v.type]||'cat-color-1'}">${typeLabels[v.type]||v.type}</span>
+      <div class="item-word">${escHtml(v.word)}</div>
+      ${v.pron    ? `<div class="item-pron">${escHtml(v.pron)}</div>` : ''}
+      ${v.def     ? `<div class="item-def">${escHtml(v.def)}</div>` : ''}
+      ${v.example ? `<div class="item-example">"${escHtml(v.example)}"</div>` : ''}
+      <div class="mastery-bar"><div class="mastery-fill" style="width:${v.mastery||0}%"></div></div>
+      <div class="card-actions">
+        <button class="btn-icon" onclick="incMasteryV('${v.id}')" title="Practicada">✅</button>
+        <button class="btn-icon" onclick="openEditVocab('${v.id}')" title="Editar">✏️</button>
+        <button class="btn-icon del" onclick="deleteVocab('${v.id}')" title="Eliminar">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function incMasteryV(id) {
+  const v = vocab.find(x => x.id === id);
+  if (!v) return;
+  v.mastery = Math.min(100, (v.mastery || 0) + 20);
+  save(); renderVocab();
+}
+
+function deleteVocab(id) {
+  if (!confirm('¿Eliminar esta palabra?')) return;
+  vocab = vocab.filter(v => v.id !== id);
+  save(); renderVocab(); toast('Palabra eliminada');
+}
+
+function openEditVocab(id) {
+  const v = vocab.find(x => x.id === id);
+  if (!v) return;
+  editingVocabId = id;
+  document.getElementById('ev-word').value    = v.word    || '';
+  document.getElementById('ev-pron').value    = v.pron    || '';
+  document.getElementById('ev-def').value     = v.def     || '';
+  document.getElementById('ev-type').value    = v.type    || 'noun';
+  document.getElementById('ev-example').value = v.example || '';
+  document.getElementById('modal-vocab').classList.add('open');
+}
+
+function saveEditVocab() {
+  const v = vocab.find(x => x.id === editingVocabId);
+  if (!v) return;
+  v.word    = document.getElementById('ev-word').value.trim();
+  v.pron    = document.getElementById('ev-pron').value.trim();
+  v.def     = document.getElementById('ev-def').value.trim();
+  v.type    = document.getElementById('ev-type').value;
+  v.example = document.getElementById('ev-example').value.trim();
+  save(); closeModal('modal-vocab'); renderVocab(); toast('Palabra actualizada ✏️');
+}
+
+// ===== MODAL =====
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// ===== UTILS =====
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===== INIT =====
+renderCatSelects();
+renderCatFilter();
+renderPhrases();
+renderVocab();
+updateStats();
+</script>
+</body>
+</html>
